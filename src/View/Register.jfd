@@ -1,0 +1,64 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.10" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.FlowLayout ) {
+			"hgap": 15
+			"vgap": 10
+		} ) {
+			name: "root"
+			"$sizePolicy": 1
+			"visible": true
+			"resizable": false
+			"defaultCloseOperation": 3
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+				name: "name"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label"
+					"text": "name"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textname"
+					"preferredSize": new java.awt.Dimension( 150, 30 )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+				"vgap": 10
+				"hgap": 15
+			} ) {
+				name: "rid"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "account"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textaccount"
+					"preferredSize": &Dimension0 new java.awt.Dimension( 150, 30 )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+				"vgap": 10
+				"hgap": 15
+			} ) {
+				name: "password"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "password"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textpass"
+					"preferredSize": #Dimension0
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "注册"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "register", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 290, 400 )
+		} )
+	}
+}

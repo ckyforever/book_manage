@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JFormDesigner-Idea">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/JFormDesigner-Idea.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
