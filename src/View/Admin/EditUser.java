@@ -1,11 +1,14 @@
 package View.Admin;
 
-import BLL.Book_BLL;
+import BLL.User_BLL;
+import Model.User;
 import util.FrameOption;
 import util.SetTableColumnCenter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -59,9 +62,12 @@ public class EditUser {
 
         new FrameOption(frame);
     }
+    private void setEditPanel() {
+        editPanel.setBounds(0,200,600,400);
+    }
     private void setTable(){
-        String[] columnNames = {"Id","账户","",""};
-        results = new Book_BLL().initTableID(columnNames);
+        String[] columnNames = {"Id","账户","姓名","密码"};
+        results = new User_BLL().initTableID(columnNames);
         table = new JTable(results, columnNames);
         // 设置表格字段居中
         new SetTableColumnCenter(table);
@@ -71,12 +77,11 @@ public class EditUser {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                editPanel.setTextFieldAccount(table.getValueAt(table.getSelectedRow(),2).toString());
-//                editPanel.setTextFieldISBN(table.getValueAt(table.getSelectedRow(),4).toString());
-//                editPanel.setTextFieldAuthor(table.getValueAt(table.getSelectedRow(),3).toString());
-//                editPanel.setTextFieldBooKDesc(table.getValueAt(table.getSelectedRow(),5).toString());
-//                editPanel.setTextFieldBookName(table.getValueAt(table.getSelectedRow(),1).toString());
-//                editPanel.setTextFieldPrice(table.getValueAt(table.getSelectedRow(),6).toString());
+                User user = new User();
+                user.setAccount(table.getValueAt(table.getSelectedRow(),1).toString());
+                user.setName(table.getValueAt(table.getSelectedRow(),2).toString());
+                user.setPassword(table.getValueAt(table.getSelectedRow(),3).toString());
+                editPanel.set(user);
             }
 
             @Override
@@ -98,6 +103,85 @@ public class EditUser {
             public void mouseExited(MouseEvent e) {
 
             }
+        });
+    }
+    private void setButtonChange() {
+        buttonChange.setBounds(470,390,60,25);
+        buttonChange.setIcon(new ImageIcon("res/button_change.jpg"));
+        buttonChange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    User user = editPanel.get();
+                    user.setId((Integer) table.getValueAt(table.getSelectedRow(),0));
+                    User_BLL.changeUserInformation(user);
+                    frame.setVisible(false);
+                    new EditUser();
+                }catch(Exception e1) {
+                    JOptionPane.showMessageDialog(null,"表中没有该数据","错误"
+                            , JOptionPane.PLAIN_MESSAGE);
+                }
+
+            }
+        });
+    }
+
+
+    /**
+     * 设置删除按钮
+     */
+    private void setButtonDel() {
+        buttonDel.setBounds(580,390,60,25);
+        buttonDel.setIcon(new ImageIcon("res/button_del.jpg"));
+        buttonDel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                User_BLL.deleteUser((Integer) table.getValueAt(table.getSelectedRow(),0));
+                frame.setVisible(false);
+                new EditUser();
+            }
+        });
+    }
+
+    /**
+     * 设置文本框重置按钮
+     */
+    private void setButtonReset() {
+        buttonReset.setBounds(270,390,150,25);
+        buttonReset.setIcon(new ImageIcon("res/button_textReset.jpg"));
+        buttonReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                editPanel.set(new User());
+            }
+        });
+    }
+
+
+    /**
+     * 设置添加按钮
+     */
+    private void setButtonAdd() {
+        buttonAdd.setBounds(700,390,60,25);
+        buttonAdd.setIcon(new ImageIcon("res/button_add.jpg"));
+        buttonAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+
+                    try {
+                        User_BLL.addUser(editPanel.get());
+                        frame.setVisible(false);
+                        new EditUser();
+                    }catch(Exception e1) {
+                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "用户添加失败", "错误"
+                                , JOptionPane.PLAIN_MESSAGE);
+                    }
+                }
+
         });
     }
 }

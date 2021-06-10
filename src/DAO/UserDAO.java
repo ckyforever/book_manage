@@ -21,8 +21,10 @@ public class UserDAO {
     }
 
     public void update(User user) {
-        DataMysql.INSTANCE.update(user);
-
+        String sql = "update user set account='"+user.getAccount()+"'" +
+                ", name='"+user.getName()+"', password='"+user.getPassword()+"'" +
+                " where Id="+user.getId();
+        DataMysql.INSTANCE.executeSql(sql);
     }
 
     public Boolean insert(User user) {
@@ -38,14 +40,12 @@ public class UserDAO {
 
     public void delete(int Id) {
         String sql = "delete from user where Id = "+Id;
-        if(!DataMysql.INSTANCE.executeSql(sql)) {
-            new Notice("删除执行异常");
-        }
+        DataMysql.INSTANCE.executeSql(sql);
     }
 
     public void update(String account, String pass) {
         String sql = "update user set password = '"+pass+"' where account = ‘" + account + "'";
-            DataMysql.INSTANCE.executeSql(sql);
+        DataMysql.INSTANCE.executeSql(sql);
 
     }
 }

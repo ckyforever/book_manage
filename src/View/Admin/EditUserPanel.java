@@ -1,5 +1,7 @@
 package View.Admin;
 
+import Model.User;
+
 import javax.swing.*;
 import java.awt.*;
 /*
@@ -74,4 +76,17 @@ public class EditUserPanel extends JPanel {
     private JLabel label3;
     private JTextField textFieldPassword;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+
+    public User get(){
+        User user = new User();
+        user.setAccount(String.valueOf(textFieldAccount.getText()));
+        user.setPassword(String.valueOf(textFieldPassword.getText()));
+        user.setName(String.valueOf(textFieldName.getText()));
+        return user;
+    }
+    public void set(User user){
+        textFieldAccount.setText(user.getAccount());
+        textFieldName.setText(user.getName());
+        textFieldPassword.setText(user.getPassword());
+    }
 }
