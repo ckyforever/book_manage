@@ -17,12 +17,15 @@ public class BorrowDAO {
     public ArrayList<Borrow> select(String account) {
         return DataMysql.INSTANCE.query(Borrow.class, "select * from borrow where userAccount = " + account);
     }
+    public ArrayList<Borrow> select(String field,String condition) {
+        return DataMysql.INSTANCE.query(Borrow.class, "select * from borrow where "+field+"='" + condition+"'");
+    }
 
     public boolean insert(Borrow borrow) {
         String sql = "insert into borrow (bookName,userAccount,time,status)values('" +
                 borrow.getBookName() + "','" +
-                borrow.getUserAccount() + "'," +
-                borrow.getTime() + ",'" +
+                borrow.getUserAccount() + "','" +
+                borrow.getTime() + "','" +
                 borrow.getStatus() + "')";
         return DataMysql.INSTANCE.executeSql(sql);
         //return true;

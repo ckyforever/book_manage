@@ -1,6 +1,5 @@
 package View.User;
 
-import BLL.Book_BLL;
 import BLL.Borrow_BLL;
 import util.FrameOption;
 import util.SetTableColumnCenter;
@@ -50,6 +49,8 @@ public class ReturnBook {
         setSelectNot();
         setSelectYes();
         container.add(scrollPane);
+        container.add(selectNot);
+        container.add(selectYes);
         container.add(returnBook);
 
         // 设置窗口大小、位置、可视、默认关闭方式等
@@ -68,14 +69,14 @@ public class ReturnBook {
 
     private void setTableYes() {
         String[] columnNames = {"图书名称","用户名","时间","状态"};
-        Object[][] results = new Book_BLL().initTable(columnNames,"status","归还");
+        Object[][] results = new Borrow_BLL().initTable(columnNames,"status","归还");
         DefaultTableModel tabModel = new DefaultTableModel(results,columnNames);
         table.setModel(tabModel);
         table.setEnabled(true);
     }
 
     private void setSelectNot() {
-        selectYes.setBounds(300,390,100,25);
+        selectNot.setBounds(300,390,100,25);
         selectNot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,7 +87,7 @@ public class ReturnBook {
 
     private void setTableNot() {
         String[] columnNames = {"图书名称","用户名","时间","状态"};
-        Object[][] results = new Book_BLL().initTable(columnNames,"status","未还");
+        Object[][] results = new Borrow_BLL().initTable(columnNames,"status","未还");
         DefaultTableModel tabModel = new DefaultTableModel(results,columnNames);
         table.setModel(tabModel);
         table.setEnabled(true);

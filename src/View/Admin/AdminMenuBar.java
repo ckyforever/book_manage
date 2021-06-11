@@ -1,7 +1,6 @@
 package View.Admin;
 
 import View.Login;
-import View.User.ReturnBook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,6 +79,7 @@ public class AdminMenuBar {
         menuItemEditBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
                 new EditBook();
             }
         });
