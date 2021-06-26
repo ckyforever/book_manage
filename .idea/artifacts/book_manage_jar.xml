@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="book_manage:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/book_manage_jar</output-path>
+    <root id="archive" name="book_manage.jar">
+      <element id="module-output" name="book_manage" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mysql-connector-java-8.0.24.jar" path-in-jar="/" />
+      <element id="library" level="project" name="JFormDesigner-Idea" />
+      <element id="library" level="project" name="MigLayout" />
+    </root>
+  </artifact>
+</component>

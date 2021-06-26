@@ -8,8 +8,6 @@ import util.KeyListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 /**
@@ -62,13 +60,9 @@ public class ChangeAdminInformation {
     private void setButtonReset() {
         buttonReset.setIcon(new ImageIcon("res/button_reset.jpg"));
         buttonReset.setBounds(420,325,90,30);
-        buttonReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                textFieldUserName.setText("");
-                textFieldPasswd.setText("");
-            }
+        buttonReset.addActionListener(e -> {
+            textFieldUserName.setText("");
+            textFieldPasswd.setText("");
         });
     }
 
@@ -79,25 +73,19 @@ public class ChangeAdminInformation {
     public void setButtonYes(){
         buttonYes.setIcon(new ImageIcon("res/button_ok.jpg"));
         buttonYes.setBounds(200,325,90,30);
-        buttonYes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-
-                Admin_BLL AdminAction = new Admin_BLL();
-                try {
-                    AdminAction.edit(textFieldUserName,textFieldPasswd);
-                    JOptionPane.showMessageDialog(null,"用户名和密码修改成功","成功"
-                            ,JOptionPane.PLAIN_MESSAGE);
-                    frame.setVisible(false);
-                    new Login().initUI();
-                } catch (SQLException throwables) {
-                    JOptionPane.showMessageDialog(null,"用户名和密码修改失败","失败"
-                            ,JOptionPane.PLAIN_MESSAGE);
-                    throwables.printStackTrace();
-                }
-
+        buttonYes.addActionListener(e -> {
+            try {
+                new Admin_BLL().edit(textFieldUserName,textFieldPasswd);
+                JOptionPane.showMessageDialog(null,"用户名和密码修改成功","成功"
+                        ,JOptionPane.PLAIN_MESSAGE);
+                frame.setVisible(false);
+                new Login().initUI();
+            } catch (SQLException throwables) {
+                JOptionPane.showMessageDialog(null,"用户名和密码修改失败","失败"
+                        ,JOptionPane.PLAIN_MESSAGE);
+                throwables.printStackTrace();
             }
+
         });
     }
 

@@ -6,8 +6,6 @@ import util.SetTableColumnCenter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -122,21 +120,18 @@ public class EditBook {
     private void setButtonChange() {
         buttonChange.setBounds(470,390,60,25);
         buttonChange.setIcon(new ImageIcon("res/button_change.jpg"));
-        buttonChange.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Book_BLL.changeBookInformation(editPanel.getTextFieldISBN(),editPanel.getTextFieldBookName(),
-                            editPanel.getTextFieldPrice(),editPanel.getTextFieldAuthor(),editPanel.getTextFieldPublish(),
-                            editPanel.getTextFieldBooKDesc(), table.getValueAt(table.getSelectedRow(),0).toString());
-                    frame.setVisible(false);
-                    new EditBook();
-                }catch(Exception e1) {
-                    JOptionPane.showMessageDialog(null,"表中没有该数据","错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-
+        buttonChange.addActionListener(e -> {
+            try {
+                Book_BLL.changeBookInformation(editPanel.getTextFieldISBN(),editPanel.getTextFieldBookName(),
+                        editPanel.getTextFieldPrice(),editPanel.getTextFieldAuthor(),editPanel.getTextFieldPublish(),
+                        editPanel.getTextFieldBooKDesc(), table.getValueAt(table.getSelectedRow(),0).toString());
+                frame.setVisible(false);
+                new EditBook();
+            }catch(Exception e1) {
+                JOptionPane.showMessageDialog(null,"表中没有该数据","错误"
+                        , JOptionPane.PLAIN_MESSAGE);
             }
+
         });
     }
 
@@ -147,20 +142,16 @@ public class EditBook {
     private void setButtonDel() {
         buttonDel.setBounds(580,390,60,25);
         buttonDel.setIcon(new ImageIcon("res/button_del.jpg"));
-        buttonDel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                try {
-                    Book_BLL.deleteBook(table.getValueAt(table.getSelectedRow(),1).toString());
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    JOptionPane.showMessageDialog(null,"删除图书失败","错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                frame.setVisible(false);
-                new EditBook();
+        buttonDel.addActionListener(e -> {
+            try {
+                Book_BLL.deleteBook(table.getValueAt(table.getSelectedRow(),1).toString());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                JOptionPane.showMessageDialog(null,"删除图书失败","错误"
+                        , JOptionPane.PLAIN_MESSAGE);
             }
+            frame.setVisible(false);
+            new EditBook();
         });
     }
 
@@ -170,17 +161,13 @@ public class EditBook {
     private void setButtonReset() {
         buttonReset.setBounds(270,390,150,25);
         buttonReset.setIcon(new ImageIcon("res/button_textReset.jpg"));
-        buttonReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                editPanel.setTextFieldAuthor("");
-                editPanel.setTextFieldBooKDesc("");
-                editPanel.setTextFieldBookName("");
-                editPanel.setTextFieldISBN("");
-                editPanel.setTextFieldPrice("");
-                editPanel.setTextFieldPublish("");
-            }
+        buttonReset.addActionListener(e -> {
+            editPanel.setTextFieldAuthor("");
+            editPanel.setTextFieldBooKDesc("");
+            editPanel.setTextFieldBookName("");
+            editPanel.setTextFieldISBN("");
+            editPanel.setTextFieldPrice("");
+            editPanel.setTextFieldPublish("");
         });
     }
 
@@ -191,54 +178,52 @@ public class EditBook {
     private void setButtonAdd() {
         buttonAdd.setBounds(700,390,60,25);
         buttonAdd.setIcon(new ImageIcon("res/button_add.jpg"));
-        buttonAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                if(editPanel.getTextFieldISBN().length() == 0) {
-                    JOptionPane.showMessageDialog(null,"ISBN号不能为空","错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-
-                else if(editPanel.getTextFieldISBN().length() != 17) {
-                    JOptionPane.showMessageDialog(null,"ISBN号位数必须是13位","错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else if(editPanel.getTextFieldBookName().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "图书名称不能为空", "错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else if(editPanel.getTextFieldAuthor().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "图书作者不能为空", "错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else if(editPanel.getTextFieldPrice().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "图书价格不能为空", "错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else if(editPanel.getTextFieldPublish().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "出版社不能为空", "错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else if(editPanel.getTextFieldPrice().length() > 4) {
-                    JOptionPane.showMessageDialog(null, "图书价格不能超过4位数", "错误"
-                            , JOptionPane.PLAIN_MESSAGE);
-                }
-                else {
-                    try {
-                        Book_BLL.addBookInformation(editPanel.getTextFieldBookName(),editPanel.getTextFieldISBN(),
-                                editPanel.getTextFieldBooKDesc(),editPanel.getTextFieldPublish(),editPanel.getTextFieldAuthor(),
-                                editPanel.getTextFieldPrice());
-                        frame.setVisible(false);
-                        new EditBook();
-                    }catch(Exception e1) {
-                        e1.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "图书添加失败", "错误"
-                                , JOptionPane.PLAIN_MESSAGE);
-                    }
-                }
-
+        buttonAdd.addActionListener(e -> {
+            if(editPanel.getTextFieldISBN().length() == 0) {
+                JOptionPane.showMessageDialog(null,"ISBN号不能为空","错误"
+                        , JOptionPane.PLAIN_MESSAGE);
             }
+
+            else if(editPanel.getTextFieldISBN().length() != 17) {
+                JOptionPane.showMessageDialog(null,"ISBN号位数必须是13位","错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else if(editPanel.getTextFieldBookName().length() == 0) {
+                JOptionPane.showMessageDialog(null, "图书名称不能为空", "错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else if(editPanel.getTextFieldAuthor().length() == 0) {
+                JOptionPane.showMessageDialog(null, "图书作者不能为空", "错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else if(editPanel.getTextFieldPrice().length() == 0) {
+                JOptionPane.showMessageDialog(null, "图书价格不能为空", "错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else if(editPanel.getTextFieldPublish().length() == 0) {
+                JOptionPane.showMessageDialog(null, "出版社不能为空", "错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else if(editPanel.getTextFieldPrice().length() > 4) {
+                JOptionPane.showMessageDialog(null, "图书价格不能超过4位数", "错误"
+                        , JOptionPane.PLAIN_MESSAGE);
+            }
+            else {
+                try {
+                    Book_BLL.addBookInformation(editPanel.getTextFieldBookName(),editPanel.getTextFieldISBN(),
+                            editPanel.getTextFieldBooKDesc(),editPanel.getTextFieldPublish(),editPanel.getTextFieldAuthor(),
+                            editPanel.getTextFieldPrice());
+                    frame.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "图书添加失败", "错误"
+                            , JOptionPane.PLAIN_MESSAGE);
+                    new EditBook();
+                }catch(Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "图书添加失败", "错误"
+                            , JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+
         });
     }
 }
